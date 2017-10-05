@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Dealer extends CardDeck {
 
 	public int playerSum;
-	public String hitOrStay = "Press '1' for new card or '0' to stay";
+	public String hitOrStay = "'h' for hit, 's' for stay";
 
 	public ArrayList<Integer> createCardDeck() {
 
@@ -43,4 +44,38 @@ public class Dealer extends CardDeck {
 	
 	}
 
+	public void loopGame(String proceed, Scanner scan) { //Metoden för att loopa spelet tills man vinner, väljer att stanna eller förlorar
+		boolean run = true;
+		
+		while (run == true) {
+			
+			if (proceed.equals("s")) {
+				run = false;
+				break;
+			}
+			if (proceed.equals("h")) {
+				
+				if (playerSum < 21) { //Om man får under 21 och väljer att 'hit' så fortsätter speler
+					proceedGame();
+				}
+				
+				if (playerSum > 21) { // Om man får över 21
+					System.out.println("\tYou lost");
+					break;
+				}
+
+				else if (playerSum == 21) { // Om man får 21
+					System.out.println("Blackjack!");
+					run = false;
+					break;
+				}
+				System.out.println("\n'h' for hit, 's' for stay");
+				proceed = scan.nextLine();
+			}
+			else if (!(proceed.equals("s")) || !(proceed.equals("h"))) { //"Felmeddelande" om man inte skriver in 's' eller 'h'
+				System.out.println(hitOrStay);
+				proceed = scan.nextLine();
+			}
+		}
+	}
 }

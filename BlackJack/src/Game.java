@@ -8,42 +8,12 @@ public class Game {
 
 		dealer.createCardDeck(); // Skapar kortleken och blandar den
 		dealer.initiateGame(); // Startar spelet och delar ut två kort till spelaren
-		
-		Scanner scan = new Scanner(System.in);
-		int proceed = scan.nextInt();
-		
-		boolean run = true;
-		
-		while (run == true) {
-			
-			if (proceed == 0) {
-				run = false;
-				break;
-			}
-			if (proceed == 1) {
-				
-				if (dealer.playerSum < 21) {
-					dealer.proceedGame();
-				}
-				
-				if (dealer.playerSum > 21) {
-					System.out.println("You lost");
-					break;
-				}
 
-				else if (dealer.playerSum == 21) {
-					System.out.println("Du fick 21");
-					run = false;
-					break;
-				}
-				System.out.println("\nPress '1' for new card or '0' to stay");
-				proceed = scan.nextInt();
-			}
-//			else if (!(proceed == 1) || !(proceed == 0)) {
-//				System.out.println(dealer.hitOrStay);
-//				proceed = scan.nextInt();
-//			}
-		}
+		Scanner scan = new Scanner(System.in);
+		String proceed = scan.nextLine();
+
+		dealer.loopGame(proceed, scan); // Loopar spelet tills man vinner, väljer att stanna eller förlorar
+
 		scan.close();
 	}
 	
