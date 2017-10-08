@@ -8,7 +8,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 
 		boolean playAgain = true;
-
+			
 		System.out.println("Welcome to BlackJack!\n\nHow much money do you have?");
 		int balance = scan.nextInt();
 
@@ -17,7 +17,7 @@ public class Game {
 			balance = scan.nextInt();
 		}
 		
-		while (playAgain) { // Så länge som playAgain är true så körs spelet
+		while (playAgain) { // Sï¿½ lï¿½nge som playAgain ï¿½r true sï¿½ kï¿½rs spelet
 			
 			System.out.println("How much do you want to bet?");
 			int wager = scan.nextInt();
@@ -35,7 +35,7 @@ public class Game {
 	
 			System.out.println("Your balance is " + balance + ", " + wager + " is on the table");
 			dealer.cardDeck.createCardDeck(); // Skapar kortleken och blandar den
-			dealer.initiateGame(); // Startar spelet och delar ut två kort till spelaren
+			dealer.initiateGame(); // Startar spelet och delar ut tvï¿½ kort till spelaren
 	
 			String proceed = scan.next();
 
@@ -43,10 +43,9 @@ public class Game {
 			boolean dealerWin = dealer.dealerWon();
 
 			String yesOrNo;
-			
-			if (balance > 0) { // Om man har pengar kvar så ska man få alternativet att spela igen
-				if (!dealerWin)
-					balance = balance + ( wager * 2 );
+			if (!dealerWin)
+				balance = balance + ( wager * 2 );
+			if (balance > 0) { // Om man har pengar kvar sï¿½ ska man fï¿½ alternativet att spela igen
 				if (dealerWin) {
 					while (balance > 0) {
 
