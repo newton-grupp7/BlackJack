@@ -28,9 +28,9 @@ public class Dealer {
 	}
 
 	int giveCard() { // Metoden för att ge kort
-		int kort = cardDeck.getCards().get(0); //cardDeck.get(0); // Ger kort värdet av kortet på index 0
+		int card = cardDeck.getCards().get(0); // Ger kort värdet av kortet på index 0
 		cardDeck.getCards().remove(0);
-		return kort;
+		return card;
 	}
 
 	void proceedGame () {
@@ -42,21 +42,13 @@ public class Dealer {
 
 	boolean playerStay(String proceed, Scanner scan) { //Metoden för att loopa spelet tills man vinner, väljer att stanna eller förlorar
 		
-//		if (!(proceed.equals("s")) || !(proceed.equals("h"))) { // "Felmeddelande" om man inte skriver in 's' eller 'h'
-//			
-//			while (!(proceed.equals("s")) || !(proceed.equals("h"))) {
-//				System.out.println(hitOrStay + " i else if");
-//				proceed = scan.next();
-//				if (proceed.equals("s") || proceed.equals("h"))
-//					break;
-//			}
-//		}
+		boolean ifNotSOrH = false;
 		
 		if (proceed.equals("s")) {
 			return true;
 		}
 		
-		if (proceed.equals("h")) {
+		else if (proceed.equals("h")) {
 			while (proceed.equals("h")) {
 
 				if (playerSum < 21) { //Om man får under 21 och väljer att 'hit' så fortsätter spelet
@@ -72,13 +64,42 @@ public class Dealer {
 					System.out.println("Blackjack!");
 					break;
 				}
-				System.out.println("\n'h' for hit, 's' for stay");
+				System.out.println("\n" + hitOrStay);
 				proceed = scan.next();
 			}
 			return false;
 		}
-		return false;
+		else {
+			ifNotSOrH = true;
 
+			while (ifNotSOrH) {
+				System.out.println(hitOrStay);
+				proceed = scan.next();
+				if (proceed.equals("s"))
+					break;
+				else if (proceed.equals("h")) {
+					while (proceed.equals("h")) {
+						if (playerSum < 21) { //Om man får under 21 och väljer att 'hit' så fortsätter spelet
+							proceedGame();
+						}
+						
+						if (playerSum > 21) { // Om man får över 21
+							System.out.println("You lost");
+							break;
+						}
+	
+						if (playerSum == 21) { // Om man får 21
+							System.out.println("Blackjack!");
+							break;
+						}
+						System.out.println("\n" + hitOrStay);
+						proceed = scan.next();
+					}
+					return false;
+				}
+			}
+		}
+		return false;
 	}
 		
 	boolean dealerWon () {
