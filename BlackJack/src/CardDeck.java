@@ -4,13 +4,12 @@ import java.util.Collections;
 public class CardDeck {
 
 	private ArrayList<Integer> cards;
-	
+
 	public CardDeck() {
-		
+
 		super();
 		cards = new ArrayList<Integer>();
 	}
-
 
 	ArrayList<Integer> createCardDeck() {
 

@@ -7,7 +7,7 @@ public class Dealer {
 	private int dealerSecondCard;
 	private String hitOrStay = "'h' for hit, 's' for stay";
 	CardDeck cardDeck; // = new CardDeck();
-	
+
 	public Dealer() {
 		super();
 		cardDeck = new CardDeck();
@@ -17,14 +17,18 @@ public class Dealer {
 		int firstCard = giveCard(); // Dealern ger första kortet
 		int secondCard = giveCard(); // Dealern ger andra kortet
 		playerSum = firstCard + secondCard;
-		System.out.println("You get a " + firstCard + " and a " + secondCard +"\nYour total is " + playerSum + "\n");
+
+		System.out.println("You get a " + firstCard + " and a " + secondCard + "\nYour total is " + playerSum + "\n");
 		// Ger två kort till spelaren och skriver ut totala
-		
-		int dealerFirstCard = giveCard();
-		dealerSecondCard = giveCard();
-		dealerSum = dealerFirstCard + dealerSecondCard;
-		System.out.println("The dealer has " + dealerFirstCard + " showing and a hidden card\nHis total is hidden too\n\n" + hitOrStay);
-		// Ger två kort till dealern men skriver bara ut det första kortet
+
+		if (playerSum != 21) {
+			int dealerFirstCard = giveCard();
+			dealerSecondCard = giveCard();
+			dealerSum = dealerFirstCard + dealerSecondCard;
+			System.out.println("The dealer has " + dealerFirstCard
+					+ " showing and a hidden card\nHis total is hidden too\n\n" + hitOrStay);
+			// Ger två kort till dealern men skriver bara ut det första kortet
+		}
 	}
 
 	int giveCard() { // Metoden för att ge kort
@@ -33,28 +37,29 @@ public class Dealer {
 		return card;
 	}
 
-	void proceedGame () {
+	void proceedGame() {
 		int newCard;
 		newCard = giveCard();
 		playerSum += newCard;
 		System.out.println("You drew a " + newCard + "\nYour total is " + playerSum);
 	}
 
-	boolean playerStay(String proceed, Scanner scan) { //Metoden för att loopa spelet tills man vinner, väljer att stanna eller förlorar
-		
+	boolean playerStay(String proceed, Scanner scan) { // Metoden för att loopa spelet tills man vinner, väljer att
+														// stanna eller förlorar
+
 		boolean ifNotSOrH = false;
-		
+
 		if (proceed.equals("s")) {
 			return true;
 		}
-		
+
 		else if (proceed.equals("h")) {
 			while (proceed.equals("h")) {
 
-				if (playerSum < 21) { //Om man får under 21 och väljer att 'hit' så fortsätter spelet
+				if (playerSum < 21) { // Om man får under 21 och väljer att 'hit' så fortsätter spelet
 					proceedGame();
 				}
-				
+
 				if (playerSum > 21) { // Om man får över 21
 					System.out.println("You lost");
 					break;
@@ -68,8 +73,7 @@ public class Dealer {
 				proceed = scan.next();
 			}
 			return false;
-		}
-		else {
+		} else {
 			ifNotSOrH = true;
 
 			while (ifNotSOrH) {
@@ -79,15 +83,15 @@ public class Dealer {
 					break;
 				else if (proceed.equals("h")) {
 					while (proceed.equals("h")) {
-						if (playerSum < 21) { //Om man får under 21 och väljer att 'hit' så fortsätter spelet
+						if (playerSum < 21) { // Om man får under 21 och väljer att 'hit' så fortsätter spelet
 							proceedGame();
 						}
-						
+
 						if (playerSum > 21) { // Om man får över 21
 							System.out.println("You lost");
 							break;
 						}
-	
+
 						if (playerSum == 21) { // Om man får 21
 							System.out.println("Blackjack!");
 							break;
@@ -99,31 +103,44 @@ public class Dealer {
 				}
 			}
 		}
+
 		return false;
 	}
-		
-	boolean dealerWon () {
-		if (playerSum > 21) 
+
+	public int getPlayerSum() {
+		return playerSum;
+	}
+
+	boolean dealerWon() {
+		if (playerSum > 21)
 			return true;
-		
-		if(!(playerSum > 21)) {
-			System.out.println("\nDealer's turn\nHis hidden card was a " + dealerSecondCard + "\nHis total was " + dealerSum);
-			
+
+		if (playerSum == 21) {
+			System.out.println("\nYou win");
+			return false;
+		} else {
+			System.out.println(
+					"\nDealer's turn\nHis hidden card was a " + dealerSecondCard + "\nHis total was " + dealerSum);
+
 			while (dealerSum < 17) { // Dealern måste ta "hit" när den har mindre än 17
 				int newCard = giveCard();
 				dealerSum = dealerSum + newCard;
-				System.out.println("\nDealer chooses to hit\nHe draws a " + newCard + "\nHis total is " + dealerSum+ "\nYour total was " + playerSum);	
+				System.out.println("\nDealer chooses to hit\nHe draws a " + newCard + "\nHis total is " + dealerSum
+						+ "\nYour total was " + playerSum);
 			}
-			
-			if (playerSum > dealerSum && playerSum <= 21|| dealerSum > 21) { // Spelaren vinner om playerSum är över dealerSum eller dealer får över 21
+
+			if (playerSum > dealerSum && playerSum <= 21 || dealerSum > 21) { // Spelaren vinner om playerSum är över
+																				// dealerSum eller dealer får över 21
 				System.out.println("\nYou win");
 				return false;
-			}
-			else {
+			} else {
 				System.out.println("\nDealer win");
 				return true;
 			}
+
+			// return true;
+
 		}
-		return true;
+
 	}
 }

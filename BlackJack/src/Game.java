@@ -17,9 +17,9 @@ public class Game {
 		boolean keyCheck = true;
 
 		do {
-			
+
 			try {
-				
+
 				balance = scan.nextInt();
 				break;
 
@@ -57,12 +57,19 @@ public class Game {
 			dealer.cardDeck.createCardDeck(); // Skapar kortleken och blandar den
 			dealer.initiateGame(); // Startar spelet och delar ut två kort till spelaren
 
-			String proceed = scan.next();
+			String yesOrNo; // Om spelaren väljer att spela vidare
 
-			dealer.playerStay(proceed, scan); //
+			if (dealer.getPlayerSum() == 21) { // Om man får 21 på första deal
+				System.out.println("Blackjack!");
+			} else {
+
+				String proceed = scan.next();
+
+				dealer.playerStay(proceed, scan);
+			}
+
 			boolean dealerWin = dealer.dealerWon();
 
-			String yesOrNo;
 			if (!dealerWin)
 				balance = balance + (wager * 2);
 
@@ -102,6 +109,7 @@ public class Game {
 				System.out.println("Your balance is " + balance + "\nYou're out of money");
 				playAgain = false;
 			}
+
 		}
 		System.out.println("Thank you for playing!");
 		scan.close();
