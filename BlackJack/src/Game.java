@@ -12,23 +12,23 @@ public class Game {
 			
 		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
 		
-		int balance = 1;
+		int balance = 0;
 		
 		boolean keyCheck = true;
 		
-		while (keyCheck){
-		
+		do {
+
 			try {
 			balance = scan.nextInt();
-			System.out.println("hej");
 			break;
+			
 		} catch (InputMismatchException e){
 			
-			System.out.println("We don't take letters...");
 			keyCheck = false;
+			System.out.println("We don't take letters...");
 			
 			}
-		}
+		}while(!keyCheck);
 		
 		while (balance == 0) {
 			System.out.println("You can't play without any money\nHow much money do you have?");
