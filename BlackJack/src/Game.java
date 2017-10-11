@@ -14,7 +14,7 @@ public class Game {
 		int balance = 1;
 		
 		boolean ifNumber = false;
-		
+		//While loopen
 		while (!ifNumber) {
 			try {
 				balance = scan.nextInt();
