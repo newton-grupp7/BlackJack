@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -10,8 +11,25 @@ public class Game {
 		boolean playAgain = true;
 			
 		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
-		int balance = scan.nextInt();
-
+		
+		int balance = 1;
+		
+		boolean keyCheck = true;
+		
+		while (keyCheck){
+		
+			try {
+			balance = scan.nextInt();
+			System.out.println("hej");
+			break;
+		} catch (InputMismatchException e){
+			
+			System.out.println("We don't take letters...");
+			keyCheck = false;
+			
+			}
+		}
+		
 		while (balance == 0) {
 			System.out.println("You can't play without any money\nHow much money do you have?");
 			balance = scan.nextInt();
