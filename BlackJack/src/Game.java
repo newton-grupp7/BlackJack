@@ -1,4 +1,4 @@
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
 public class Game {
@@ -12,43 +12,35 @@ public class Game {
 
 		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
 
-		int balance = 0;
+		int balance = 1;
+		int wager = 1;
 
-		boolean keyCheck = true;
-
-		do {
-
-			try {
-
-				balance = scan.nextInt();
-				break;
-
-			} catch (InputMismatchException e) {
-
-				keyCheck = false;
-				System.out.println("We don't take letters...");
-				scan.next();
-			}
-
-		} while (!keyCheck);
+		balance = dealer.numCheck(balance, scan);
 
 		while (balance == 0) {
+			
 			System.out.println("You can't play without any money\nHow much money do you have?");
-			balance = scan.nextInt();
+			balance = dealer.numCheck(balance, scan);
 		}
 
 		while (playAgain) { // Så länge som playAgain är true så körs spelet
 
 			System.out.println("How much do you want to bet?");
-			int wager = scan.nextInt();
-
+			
+			wager = dealer.numCheck(wager, scan);
+			
 			while (wager == 0) {
 				System.out.println("You have to bet money to play\nHow much do you want to bet?");
-				wager = scan.nextInt();
+				wager = dealer.numCheck(wager, scan);
 			}
-			while (wager > balance) {
-				System.out.println("You can't bet more money than you have\nHow much do you want to bet?");
-				wager = scan.nextInt();
+			while (wager > balance || wager == 0) {
+				if (wager == 0 ) 
+					System.out.println("You have to bet money to play\nHow much do you want to bet?");
+				if (wager > balance)
+					System.out.println("You can't bet more money than you have\nHow much do you want to bet?");
+				
+				wager = dealer.numCheck(wager, scan);
+			
 			}
 
 			balance = balance - wager;
