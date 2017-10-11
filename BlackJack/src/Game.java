@@ -11,22 +11,19 @@ public class Game {
 		boolean playAgain = true;
 			
 		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
-		
 		int balance = 1;
 		
-		boolean keyCheck = true;
+		boolean ifNumber = false;
 		
-		while (keyCheck){
-		
+		while (!ifNumber) {
 			try {
-			balance = scan.nextInt();
-			System.out.println("hej");
-			break;
-		} catch (InputMismatchException e){
-			
-			System.out.println("We don't take letters...");
-			keyCheck = false;
-			
+				balance = scan.nextInt();
+				ifNumber = true;
+			}
+			catch (InputMismatchException e) {
+				
+				System.out.println("");
+				ifNumber = false;
 			}
 		}
 		
