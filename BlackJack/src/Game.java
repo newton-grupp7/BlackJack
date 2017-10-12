@@ -23,7 +23,7 @@ public class Game {
 			balance = dealer.numCheck(balance, scan);
 		}
 
-		while (playAgain) { // Så länge som playAgain är true så körs spelet
+		while (playAgain) { // Sï¿½ lï¿½nge som playAgain ï¿½r true sï¿½ kï¿½rs spelet
 
 			System.out.println("How much do you want to bet?");
 			
@@ -47,11 +47,11 @@ public class Game {
 
 			System.out.println("Your balance is " + balance + ", " + wager + " is on the table");
 			dealer.cardDeck.createCardDeck(); // Skapar kortleken och blandar den
-			dealer.initiateGame(); // Startar spelet och delar ut två kort till spelaren
+			dealer.initiateGame(); // Startar spelet och delar ut tvï¿½ kort till spelaren
 
-			String yesOrNo; // Om spelaren väljer att spela vidare
+			String yesOrNo; // Om spelaren vï¿½ljer att spela vidare
 
-			if (dealer.getPlayerSum() == 21) { // Om man får 21 på första deal
+			if (dealer.getPlayerSum() == 21) { // Om man fï¿½r 21 pï¿½ fï¿½rsta deal
 				System.out.println("Blackjack!");
 			} else {
 
@@ -65,7 +65,7 @@ public class Game {
 			if (!dealerWin)
 				balance = balance + (wager * 2);
 
-			if (balance > 0) { // Om man har pengar kvar så ska man få alternativet att spela igen
+			if (balance > 0) { // Om man har pengar kvar sï¿½ ska man fï¿½ alternativet att spela igen
 				if (dealerWin) {
 					while (balance > 0) {
 
@@ -75,10 +75,17 @@ public class Game {
 						if (yesOrNo.equals("y")) {
 							playAgain = true;
 							break;
+						} else if (yesOrNo.equals("Y")) {
+								playAgain = true;
+								break;
 						} else if (yesOrNo.equals("n")) {
 							playAgain = false;
 							break;
-						} else
+						} else if (yesOrNo.equals("N")) {
+								playAgain = false;
+								break;
+							}
+						  else
 							System.out.println("'y' for yes, 'n' for no");
 					}
 				} else {
@@ -87,10 +94,10 @@ public class Game {
 						System.out.println("Your balance is " + balance
 								+ "\n\nWould you like to play again? 'y' for yes, 'n' for no");
 						yesOrNo = scan.next();
-						if (yesOrNo.equals("y")) {
+						if (yesOrNo.equals("y") || yesOrNo.equals("Y")) {
 							playAgain = true;
 							break;
-						} else if (yesOrNo.equals("n")) {
+						} else if (yesOrNo.equals("n") || yesOrNo.equals("N")) {
 							playAgain = false;
 							break;
 						} else
