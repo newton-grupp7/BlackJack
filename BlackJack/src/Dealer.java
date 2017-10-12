@@ -77,10 +77,10 @@ public class Dealer {
 			while (ifNotSOrH) {
 				System.out.println(hitOrStay);
 				proceed = scan.next();
-				if (proceed.equals("s"))
+				if (proceed.equals("s") || proceed.equals("S"))
 					break;
-				else if (proceed.equals("h")) {
-					while (proceed.equals("h")) {
+				else if (proceed.equals("h") ||proceed.equals("H")) {
+					while (proceed.equals("h") || proceed.equals("H")) {
 						if (playerSum < 21) { // Om man f�r under 21 och v�ljer att 'hit' s� forts�tter spelet
 							proceedGame();
 						}
