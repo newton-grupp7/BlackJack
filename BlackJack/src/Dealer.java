@@ -17,14 +17,16 @@ public class Dealer {
 	void initiateGame() {
 		int firstCard = giveCard(); // Dealern ger fï¿½rsta kortet
 		int secondCard = giveCard(); // Dealern ger andra kortet
-		playerSum = firstCard + secondCard;
+		// playerSum = firstCard + secondCard;
+		playerSum = 21;
 		System.out.println("You get a " + firstCard + " and a " + secondCard + "\nYour total is " + playerSum + "\n");
 		// Ger tvï¿½ kort till spelaren och skriver ut totala
 
+		int dealerFirstCard = giveCard();
+		dealerSecondCard = giveCard();
+		dealerSum = dealerFirstCard + dealerSecondCard;
+
 		if (playerSum < 21) {
-			int dealerFirstCard = giveCard();
-			dealerSecondCard = giveCard();
-			dealerSum = dealerFirstCard + dealerSecondCard;
 			System.out.println("The dealer has " + dealerFirstCard
 					+ " showing and a hidden card\nHis total is hidden too\n\n" + hitOrStay);
 			// Ger tvï¿½ kort till dealern men skriver bara ut det fï¿½rsta kortet
@@ -54,7 +56,7 @@ public class Dealer {
 			if (playerSum < 21) { // Om man fï¿½r under 21 och vï¿½ljer att 'hit' sï¿½ fortsï¿½tter spelet
 				proceedGame();
 				if (playerSum < 21) {
-					System.out.println("\n" + hitOrStay);
+					System.out.println("\n" + hitOrStay + " i första while loop");
 					proceed = scan.next();
 				}
 			}
@@ -80,7 +82,7 @@ public class Dealer {
 			ifNotSOrH = true;
 		}
 		while (ifNotSOrH) {
-			System.out.println(hitOrStay);
+			System.out.println(hitOrStay + " i andra while loop");
 			proceed = scan.next();
 			if (proceed.equals("s") || proceed.equals("S"))
 				break;
@@ -99,7 +101,7 @@ public class Dealer {
 						System.out.println("Blackjack!");
 						break;
 					}
-					System.out.println("\n" + hitOrStay);
+					System.out.println("\n" + hitOrStay + " andra i andra while loop");
 					proceed = scan.next();
 				}
 				return false;
