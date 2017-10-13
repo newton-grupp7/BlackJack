@@ -21,12 +21,14 @@ public class Dealer {
 		System.out.println("You get a " + firstCard + " and a " + secondCard + "\nYour total is " + playerSum + "\n");
 		// Ger tv� kort till spelaren och skriver ut totala
 
-		int dealerFirstCard = giveCard();
-		dealerSecondCard = giveCard();
-		dealerSum = dealerFirstCard + dealerSecondCard;
-		System.out.println("The dealer has " + dealerFirstCard
-				+ " showing and a hidden card\nHis total is hidden too\n\n" + hitOrStay);
-		// Ger tv� kort till dealern men skriver bara ut det f�rsta kortet
+		if (playerSum < 21) {
+			int dealerFirstCard = giveCard();
+			dealerSecondCard = giveCard();
+			dealerSum = dealerFirstCard + dealerSecondCard;
+			System.out.println("The dealer has " + dealerFirstCard
+					+ " showing and a hidden card\nHis total is hidden too\n\n" + hitOrStay);
+			// Ger tv� kort till dealern men skriver bara ut det f�rsta kortet
+		}
 	}
 
 	int giveCard() { // Metoden f�r att ge kort
@@ -47,58 +49,60 @@ public class Dealer {
 
 		boolean ifNotSOrH = false;
 
-		if (proceed.equals("s") || proceed.equals("S")) {
-			return true;
+		while (proceed.equals("h") || proceed.equals("H")) {
+
+			if (playerSum < 21) { // Om man f�r under 21 och v�ljer att 'hit' s� forts�tter spelet
+				proceedGame();
+				if (playerSum < 21) {
+					System.out.println("\n" + hitOrStay);
+					proceed = scan.next();
+				}
+			}
+
+			if (playerSum > 21) { // Om man f�r �ver 21
+				System.out.println("You lost");
+				break;
+			}
+
+			if (playerSum == 21) { // Om man f�r 21
+				System.out.println("Blackjack!");
+				break;
+			}
 		}
 
-		else if (proceed.equals("h") || proceed.equals("H")) {
-			while (proceed.equals("h") || proceed.equals("H")) {
+		if (proceed.equals("s") || proceed.equals("S"))
+			return true;
 
-				if (playerSum < 21) { // Om man f�r under 21 och v�ljer att 'hit' s� forts�tter spelet
-					proceedGame();
-				}
-
-				if (playerSum > 21) { // Om man f�r �ver 21
-					System.out.println("You lost");
-					break;
-				}
-
-				if (playerSum == 21) { // Om man f�r 21
-					System.out.println("Blackjack!");
-					break;
-				}
-				System.out.println("\n" + hitOrStay);
-				proceed = scan.next();
-			}
+		if (proceed.equals("h") || proceed.equals("H"))
 			return false;
-		} else {
+
+		else {
 			ifNotSOrH = true;
-
-			while (ifNotSOrH) {
-				System.out.println(hitOrStay);
-				proceed = scan.next();
-				if (proceed.equals("s") || proceed.equals("S"))
-					break;
-				else if (proceed.equals("h") ||proceed.equals("H")) {
-					while (proceed.equals("h") || proceed.equals("H")) {
-						if (playerSum < 21) { // Om man f�r under 21 och v�ljer att 'hit' s� forts�tter spelet
-							proceedGame();
-						}
-
-						if (playerSum > 21) { // Om man f�r �ver 21
-							System.out.println("You lost");
-							break;
-						}
-
-						if (playerSum == 21) { // Om man f�r 21
-							System.out.println("Blackjack!");
-							break;
-						}
-						System.out.println("\n" + hitOrStay);
-						proceed = scan.next();
+		}
+		while (ifNotSOrH) {
+			System.out.println(hitOrStay);
+			proceed = scan.next();
+			if (proceed.equals("s") || proceed.equals("S"))
+				break;
+			else if (proceed.equals("h") || proceed.equals("H")) {
+				while (proceed.equals("h") || proceed.equals("H")) {
+					if (playerSum < 21) { // Om man f�r under 21 och v�ljer att 'hit' s� forts�tter spelet
+						proceedGame();
 					}
-					return false;
+
+					if (playerSum > 21) { // Om man f�r �ver 21
+						System.out.println("You lost");
+						break;
+					}
+
+					if (playerSum == 21) { // Om man f�r 21
+						System.out.println("Blackjack!");
+						break;
+					}
+					System.out.println("\n" + hitOrStay);
+					proceed = scan.next();
 				}
+				return false;
 			}
 		}
 		return false;
@@ -123,8 +127,10 @@ public class Dealer {
 						+ "\nYour total was " + playerSum);
 			}
 
-			if (playerSum > dealerSum && playerSum <= 21 || dealerSum > 21) { // Spelaren vinner om playerSum �r �ver
-																				// dealerSum eller dealer f�r �ver 21
+			if (playerSum > dealerSum && playerSum <= 21 || dealerSum > 21) { // Spelaren vinner om playerSum �r
+																				// �ver
+																				// dealerSum eller dealer f�r �ver
+																				// 21
 				System.out.println("\nYou win");
 				return false;
 			} else {

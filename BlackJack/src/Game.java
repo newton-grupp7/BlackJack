@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Game {
@@ -8,17 +7,17 @@ public class Game {
 		Dealer dealer = new Dealer(); // Skapar ett objekt av klassen Dealer
 		Scanner scan = new Scanner(System.in);
 
-		boolean playAgain = true;
-
-		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
-
 		int balance = 1;
 		int wager = 1;
+		boolean playAgain = true;
+		String yesOrNo; // Om spelaren v�ljer att spela vidare
+
+		System.out.println("Welcome to Blackjack!\n\nHow much money do you have?");
 
 		balance = dealer.numCheck(balance, scan);
 
 		while (balance == 0) {
-			
+
 			System.out.println("You can't play without any money\nHow much money do you have?");
 			balance = dealer.numCheck(balance, scan);
 		}
@@ -26,21 +25,21 @@ public class Game {
 		while (playAgain) { // S� l�nge som playAgain �r true s� k�rs spelet
 
 			System.out.println("How much do you want to bet?");
-			
+
 			wager = dealer.numCheck(wager, scan);
-			
+
 			while (wager == 0) {
 				System.out.println("You have to bet money to play\nHow much do you want to bet?");
 				wager = dealer.numCheck(wager, scan);
 			}
 			while (wager > balance || wager == 0) {
-				if (wager == 0 ) 
+				if (wager == 0)
 					System.out.println("You have to bet money to play\nHow much do you want to bet?");
 				if (wager > balance)
 					System.out.println("You can't bet more money than you have\nHow much do you want to bet?");
-				
+
 				wager = dealer.numCheck(wager, scan);
-			
+
 			}
 
 			balance = balance - wager;
@@ -49,10 +48,13 @@ public class Game {
 			dealer.cardDeck.createCardDeck(); // Skapar kortleken och blandar den
 			dealer.initiateGame(); // Startar spelet och delar ut tv� kort till spelaren
 
-			String yesOrNo; // Om spelaren v�ljer att spela vidare
+			boolean dealerWin;
 
 			if (dealer.getPlayerSum() == 21) { // Om man f�r 21 p� f�rsta deal
 				System.out.println("Blackjack!");
+			} else if (dealer.getPlayerSum() > 21) {
+				System.out.println("You lost");
+				dealerWin = false;
 			} else {
 
 				String proceed = scan.next();
@@ -60,7 +62,7 @@ public class Game {
 				dealer.playerStay(proceed, scan);
 			}
 
-			boolean dealerWin = dealer.dealerWon();
+			dealerWin = dealer.dealerWon();
 
 			if (!dealerWin)
 				balance = balance + (wager * 2);
@@ -76,16 +78,15 @@ public class Game {
 							playAgain = true;
 							break;
 						} else if (yesOrNo.equals("Y")) {
-								playAgain = true;
-								break;
+							playAgain = true;
+							break;
 						} else if (yesOrNo.equals("n")) {
 							playAgain = false;
 							break;
 						} else if (yesOrNo.equals("N")) {
-								playAgain = false;
-								break;
-							}
-						  else
+							playAgain = false;
+							break;
+						} else
 							System.out.println("'y' for yes, 'n' for no");
 					}
 				} else {
